@@ -41,7 +41,7 @@ async function start() {
     }
     catch (e)
     {
-      res.status(1001).json({ error: "Erreur serveur" }); // 500 server error
+      res.status(500).json({ error: "Erreur serveur" });
     }
   });
 /////////////////////////////////////////////////////////////////////////////////////
