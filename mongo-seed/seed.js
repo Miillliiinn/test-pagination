@@ -1,3 +1,5 @@
+const { MongoClient } = require('mongodb');
+
 const categories = ["shoes", "clothing", "accessories", "bags"];
 
 const brands = [
@@ -133,7 +135,32 @@ for (let i = 1; i <= 5000; i++) {
   });
 }
 
-db = db.getSiblingDB("shop");
-db.products.drop();
-db.products.insertMany(products);
-print("Seed OK - " + products.length + " produits inseres dans shop.products");
+// db = db.getSiblingDB("shop");
+// db.products.drop();
+// db.products.insertMany(products);
+// print("Seed OK - " + products.length + " produits inseres dans shop.products");
+
+const uri = "mongodb+srv://render:render2012@cluster0.92p5ejm.mongodb.net/?appName=Cluster0";
+
+async function run()
+{
+  const client = new MongoClient(uri);
+  try
+  {
+    await client.connect();
+    const db = client.db("shop");
+    await db.collection("products").deleteMany({});
+    const result = await db.collection("products").insertMany(products);
+    console.log(`Seed OK.`);
+  }
+  catch (error)
+  {
+    console.error("Erreur lors du seeding :   ", error);
+  }
+  finally
+  {
+    await client.close();
+  }
+}
+
+run();
