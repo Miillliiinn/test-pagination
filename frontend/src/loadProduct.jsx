@@ -3,7 +3,8 @@ export async function loadProduct(category, sort, order, page, limit)
 {
     try
     {
-        const products = await fetch(`http://localhost:3001/api/products?category=${category}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`);
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3001';
+        const products = await fetch(`${apiUrl}/api/products?category=${category}&sort=${sort}&order=${order}&page=${page}&limit=${limit}`);
         if (!products.ok)
             throw new Error(`Error: loadProduct fetch: status = ${products.status}`);
         const data = await products.json();
