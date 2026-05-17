@@ -22,8 +22,8 @@ async function start() {
   try
   {
     const db = app.locals.db;
-    const page = parseInt(req.query.page);
-    const limit = parseInt(req.query.limit);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 8;
     const skip = (page - 1) * limit;
     const category = req.query.category;
     const query = category ? { category } : {};
