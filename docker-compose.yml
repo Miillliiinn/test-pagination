@@ -9,7 +9,6 @@ services:
     environment:
       MONGO_INITDB_DATABASE: shop
     volumes:
-      - ./mongo-seed/seed.js:/docker-entrypoint-initdb.d/seed.js:ro
       - mongo_data:/data/db
 
   backend:
@@ -18,7 +17,7 @@ services:
     ports:
       - "3001:3001"
     environment:
-      MONGO_URI: mongodb://mongo:27017/shop
+      MONGO_URI: ${MONGO_CLOUD}
       PORT: 3001
     depends_on:
       - mongo

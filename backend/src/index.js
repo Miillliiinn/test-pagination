@@ -17,6 +17,7 @@ async function start() {
   app.use(cors());
   app.use(express.json());
   app.listen(PORT, () => console.log("Serveur demarre sur http://localhost:" + PORT));
+  
   /////////////////////////////////////////////////////////////////////////////////////
   app.get("/api/products", async (req, res) => {
   try

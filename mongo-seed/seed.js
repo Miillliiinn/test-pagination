@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { MongoClient } = require('mongodb');
 
 const categories = ["shoes", "clothing", "accessories", "bags"];
@@ -140,7 +141,17 @@ for (let i = 1; i <= 5000; i++) {
 // db.products.insertMany(products);
 // print("Seed OK - " + products.length + " produits inseres dans shop.products");
 
-const uri = "mongodb+srv://render:render2012@cluster0.92p5ejm.mongodb.net/?appName=Cluster0";
+const dbUser = process.env.MONGO_USER;
+const dbPass = process.env.MONGO_PASS;
+const dbCluster = process.env.MONGO_CLUSTER;
+
+if (!dbUser || !dbPass || !dbCluster)
+{
+  console.log("Error: seed.js : process.env.MONGO_ var failed")
+  process.exit(15);
+}
+
+const uri = `mongodb+srv://${dbUser}:${dbPass}@${dbCluster}.mongodb.net/?appName=Cluster0`;
 
 async function run()
 {
