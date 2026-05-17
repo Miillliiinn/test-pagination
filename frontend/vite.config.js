@@ -13,4 +13,5 @@ export default defineConfig({
       "/api": "http://backend:3001",
     },
   },
+  base: './'
 });
